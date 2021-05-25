@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: "Items-Service"
+
+server:
+  port: 8081
+
