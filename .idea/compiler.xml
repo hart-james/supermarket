@@ -8,15 +8,18 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eureka" />
         <module name="item" />
+        <module name="configserver" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="configserver" target="11" />
       <module name="eureka" target="1.8" />
       <module name="item" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="configserver" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="item" options="-parameters" />
     </option>
