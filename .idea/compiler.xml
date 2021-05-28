@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="item" />
         <module name="configserver" />
+        <module name="hystrixdashboard" />
         <module name="eureka" />
         <module name="gateway" />
       </profile>
@@ -16,6 +17,7 @@
       <module name="configserver" target="11" />
       <module name="eureka" target="1.8" />
       <module name="gateway" target="1.8" />
+      <module name="hystrixdashboard" target="1.8" />
       <module name="item" target="11" />
     </bytecodeTargetLevel>
   </component>
@@ -24,6 +26,7 @@
       <module name="configserver" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="hystrixdashboard" options="-parameters" />
       <module name="item" options="-parameters" />
     </option>
   </component>

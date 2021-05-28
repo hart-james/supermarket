@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/configserver/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/hystrixdashboard/pom.xml" />
       </list>
     </option>
   </component>

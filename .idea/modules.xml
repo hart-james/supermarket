@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/configserver/configserver.iml" filepath="$PROJECT_DIR$/configserver/configserver.iml" />
       <module fileurl="file://$PROJECT_DIR$/eureka/eureka.iml" filepath="$PROJECT_DIR$/eureka/eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway/gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hystrixdashboard/hystrixdashboard.iml" filepath="$PROJECT_DIR$/hystrixdashboard/hystrixdashboard.iml" />
       <module fileurl="file://$PROJECT_DIR$/item/item.iml" filepath="$PROJECT_DIR$/item/item.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/supermarket.iml" filepath="$PROJECT_DIR$/.idea/supermarket.iml" />
     </modules>

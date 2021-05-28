@@ -11,3 +11,24 @@ spring:
           uri: lb://Items-Service
           predicates:
             - Path=/items/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: items-service
+                fallbackuri: foreward:/itemsFallback
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream, info, health
+
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+
