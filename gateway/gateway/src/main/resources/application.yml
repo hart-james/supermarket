@@ -1,0 +1,13 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: "Gateway-Service"
+  cloud:
+    gateway:
+      routes:
+        - id: Items-Service
+          uri: lb://Items-Service
+          predicates:
+            - Path=/items/**
