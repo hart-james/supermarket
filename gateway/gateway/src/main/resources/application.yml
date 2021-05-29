@@ -22,6 +22,7 @@ management:
     web:
       exposure:
         include: hystrix.stream, info, health
+#http://localhost:9999/actuator/hystrix.stream
 
 hystrix:
   command:
