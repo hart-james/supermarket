@@ -2,6 +2,9 @@ server:
   port: 9999
 
 spring:
+  redis:
+    host: 192.168.86.242
+    port: 6380
   application:
     name: "Gateway-Service"
   cloud:
@@ -16,6 +19,14 @@ spring:
               args:
                 name: items-service
                 fallbackuri: foreward:/itemsFallback
+            - name : RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 2
+      filter:
+        request-rate-limiter:
+          deny-empty-key : false # no key resolver needed
+
 
 management:
   endpoints:

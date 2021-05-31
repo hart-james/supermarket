@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard:2.2.9.BUILD-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-netflix-hystrix-dashboard/2.2.9.BUILD-SNAPSHOT/spring-cloud-starter-netflix-hystrix-dashboard-2.2.9.BUILD-20210528.153529-290.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-netflix-hystrix-dashboard/2.2.9.BUILD-SNAPSHOT/spring-cloud-starter-netflix-hystrix-dashboard-2.2.9.BUILD-20210531.153514-314.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-netflix-hystrix-dashboard/2.2.9.BUILD-SNAPSHOT/spring-cloud-starter-netflix-hystrix-dashboard-2.2.9.BUILD-20210528.153529-290-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-netflix-hystrix-dashboard/2.2.9.BUILD-SNAPSHOT/spring-cloud-starter-netflix-hystrix-dashboard-2.2.9.BUILD-20210531.153514-314-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-netflix-hystrix-dashboard/2.2.9.BUILD-SNAPSHOT/spring-cloud-starter-netflix-hystrix-dashboard-2.2.9.BUILD-20210528.153529-290-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-netflix-hystrix-dashboard/2.2.9.BUILD-SNAPSHOT/spring-cloud-starter-netflix-hystrix-dashboard-2.2.9.BUILD-20210531.153514-314-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

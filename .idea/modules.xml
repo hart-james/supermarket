@@ -7,7 +7,9 @@
       <module fileurl="file://$PROJECT_DIR$/gateway/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway/gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/hystrixdashboard/hystrixdashboard.iml" filepath="$PROJECT_DIR$/hystrixdashboard/hystrixdashboard.iml" />
       <module fileurl="file://$PROJECT_DIR$/item/item.iml" filepath="$PROJECT_DIR$/item/item.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sales/sales.iml" filepath="$PROJECT_DIR$/sales/sales.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/supermarket.iml" filepath="$PROJECT_DIR$/.idea/supermarket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transaction/transaction.iml" filepath="$PROJECT_DIR$/transaction/transaction.iml" />
     </modules>
   </component>
 </project>

@@ -9,6 +9,8 @@
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/hystrixdashboard/pom.xml" />
+        <option value="$PROJECT_DIR$/transaction/pom.xml" />
+        <option value="$PROJECT_DIR$/sales/pom.xml" />
       </list>
     </option>
   </component>
