@@ -12,7 +12,7 @@ public class GatewayApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayApplication.class, args);
-		System.out.println("Gateway Service");
+		System.out.println("Gateway Service East");
 	}
 
 }

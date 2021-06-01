@@ -1,0 +1,47 @@
+
+server:
+  port: 7777
+
+spring:
+  redis:
+    host: 192.168.86.242
+    port: 6380
+  application:
+    name: "Gateway-Service-West"
+  cloud:
+    gateway:
+      routes:
+        - id: Items-Service
+          uri: lb://Items-Service
+          predicates:
+            - Path=/items/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: items-service
+                fallbackuri: foreward:/itemsFallback
+#            - name : RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 1
+#                redis-rate-limiter.burstCapacity: 2
+#      filter:
+#        request-rate-limiter:
+#          deny-empty-key : false # no key resolver needed
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream, info, health
+#http://localhost:9999/actuator/hystrix.stream
+
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+

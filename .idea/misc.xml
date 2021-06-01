@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/hystrixdashboard/pom.xml" />
         <option value="$PROJECT_DIR$/transaction/pom.xml" />
         <option value="$PROJECT_DIR$/sales/pom.xml" />
+        <option value="$PROJECT_DIR$/Gateway2/pom.xml" />
       </list>
     </option>
   </component>
