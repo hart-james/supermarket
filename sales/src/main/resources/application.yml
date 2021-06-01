@@ -4,7 +4,7 @@ server:
 spring:
   application:
     name: "Sales-Service"
-  redis:
-    host: 192.168.86.242
-    port: 6380
+#  redis:
+#    host: 192.168.86.242
+#    port: 6380
 
