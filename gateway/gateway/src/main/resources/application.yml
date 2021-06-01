@@ -19,13 +19,13 @@ spring:
               args:
                 name: items-service
                 fallbackuri: foreward:/itemsFallback
-            - name : RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 1
-                redis-rate-limiter.burstCapacity: 2
-      filter:
-        request-rate-limiter:
-          deny-empty-key : false # no key resolver needed
+#            - name : RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 1
+#                redis-rate-limiter.burstCapacity: 2
+#      filter:
+#        request-rate-limiter:
+#          deny-empty-key : false # no key resolver needed
 
 
 management:
