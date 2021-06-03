@@ -7,9 +7,15 @@ spring:
         - http://localhost:8888
       server:
           bootstrap: false
+  data:
+    mongodb:
+      host: localhost
+      port: 27018
+      datebase: "test"
 
 server:
   port: 8081
 
 # swagger-ui.html for GUI
+
 

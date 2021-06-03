@@ -1,19 +1,22 @@
 package com.hart.supermarket.item;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 import java.util.UUID;
 
+@Document
 public class Item {
 
     private String name;
     private String brand;
     private String section;
     private double price;
-    private UUID sku;
+    private String sku;
     private Date expiration;
     private boolean sale;
 
-    public Item(String name, String brand, String section, double price, UUID sku, Date expiration, boolean sale) {
+    public Item(String name, String brand, String section, double price, String sku, Date expiration, boolean sale) {
         this.name = name;
         this.brand = brand;
         this.section = section;
@@ -55,11 +58,11 @@ public class Item {
         this.price = price;
     }
 
-    public UUID getSku() {
+    public String getSku() {
         return sku;
     }
 
-    public void setSku(UUID sku) {
+    public void setSku(String sku) {
         this.sku = sku;
     }
 

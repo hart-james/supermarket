@@ -21,11 +21,23 @@ public class ItemsService {
                 "Cliff",
                 "Health",
                 15.00,
-                 uuid,
+                 "13-A-8686",
                 date,
                 false);
 
         return item.getBrand();
+    }
+    
+    public static Item createAnItem() {
+        Date date = new Date(System.currentTimeMillis());
+        Item item = new Item("Chocolate Chip Energy Bar",
+                "Cliff",
+                "Health",
+                15.00,
+                "13-A-8686",
+                date,
+                false);
+        return item;
     }
 
 
