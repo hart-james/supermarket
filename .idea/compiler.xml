@@ -9,6 +9,7 @@
         <module name="gateway2" />
         <module name="item" />
         <module name="eureka" />
+        <module name="batch" />
         <module name="configserver" />
         <module name="hystrixdashboard" />
         <module name="gateway" />
@@ -17,6 +18,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="batch" target="11" />
       <module name="configserver" target="11" />
       <module name="eureka" target="1.8" />
       <module name="gateway" target="1.8" />
@@ -29,6 +31,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="batch" options="-parameters" />
       <module name="configserver" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="gateway" options="-parameters" />
