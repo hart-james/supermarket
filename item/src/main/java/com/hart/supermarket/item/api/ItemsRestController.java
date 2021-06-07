@@ -1,12 +1,11 @@
 package com.hart.supermarket.item.api;
 
-import com.google.common.util.concurrent.RateLimiter;
 import com.hart.supermarket.item.Item;
 import com.hart.supermarket.item.repository.ItemRepository;
-import com.hart.supermarket.item.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/items/")
@@ -14,31 +13,75 @@ public class ItemsRestController {
 
 //    @Value("${key.name}")
 //    String name;  //For Config Server Testing
-    @Autowired
-    private RateLimiter rateLimiter;
 
     @Autowired
-    private ItemRepository repository;
+    private ItemRepository itemRepository;
 
-    @GetMapping(value = "/hello", produces = { "application/json" } )
-    public String TestService() {
-        boolean okToGo = rateLimiter.tryAcquire();
-        if (okToGo){
-            return ItemsService.GetACliffBarBrand();
-        }
-        return "Too many requests.";
-    }
-
+    //POST
     @PostMapping(value = "/create", produces = { "application/json" } )
-    public String createAnIteam() {
-       Item createdItem = ItemsService.createAnItem(); //dummy object in service
-       repository.save(createdItem);
-       return "Saved";
+    public String createAnIteam(@RequestBody Item item) {
+       itemRepository.save(item);
+       return "Saved " + item.getName();
     }
-    
+
+
+    //GET
     @GetMapping(value= "/{sku}", produces = { "application/json" } )
     public Item getItemBySku(@PathVariable String sku) {
-        return repository.findItemBySku(sku);
+        return itemRepository.findItemBySku(sku);
     }
 
+    @GetMapping(value = "/all", produces = { "application/json" } )
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
+    }
+
+
+    //PUT
+    @PutMapping(value ="/update/{sku}", produces = { "application/json" } )
+    public Item editAnItem(@RequestBody Item item){
+        itemRepository.save(item);
+        return item;
+    }
+
+    @PutMapping(value = "/incrementStock/{sku}",produces = { "application/json" } )
+    public String incrementItemsStock(@PathVariable String sku) {
+        Item item = itemRepository.findItemBySku(sku);
+        int stock = item.getStocked() + 1;
+        item.setStocked(stock);
+        itemRepository.save(item);
+
+        return item.getName() + " incremented";
+    }
+
+
+    @PutMapping(value = "/decrementStock/{sku}",produces = { "application/json" } )
+    public String decrementItemsStock(@PathVariable String sku) {
+        Item item = itemRepository.findItemBySku(sku);
+        int stock = item.getStocked() - 1;
+        item.setStocked(stock);
+        itemRepository.save(item);
+
+        return item.getName() + " dencremented";
+    }
+
+
+    //DELETE
+    @DeleteMapping(value = "/delete", produces = { "application/json"} )
+    public String deleteItem(String sku) {
+        itemRepository.deleteItemBySku(sku);
+        return "Deleted";
+    }
+
+    @DeleteMapping(value = "/delete/all", produces = { "application/json"} )
+    public String deleteAll(@RequestParam String password) {
+
+        //The password would be retrieved from the config server at startup
+        if (password == "pizza") {
+            itemRepository.deleteAll();
+            return "Deleted Everything";
+        }
+        return "Did not delete.";
+
+    }
 }

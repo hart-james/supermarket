@@ -1,22 +1,27 @@
 package com.hart.supermarket.item;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.UUID;
 
-@Document
+@Document(collection="Items")
 public class Item {
 
     private String name;
     private String brand;
     private String section;
     private double price;
+    @Id
     private String sku;
-    private Date expiration;
+    private int expiration;
     private boolean sale;
+    private int stocked;
+    private String image;
 
-    public Item(String name, String brand, String section, double price, String sku, Date expiration, boolean sale) {
+    public Item(String name, String brand, String section, double price,
+                String sku, int expiration, boolean sale, int stocked, String image) {
         this.name = name;
         this.brand = brand;
         this.section = section;
@@ -24,6 +29,8 @@ public class Item {
         this.sku = sku;
         this.expiration = expiration;
         this.sale = sale;
+        this.stocked = stocked;
+        this.image = image;
     }
 
     public String getName() {
@@ -66,11 +73,11 @@ public class Item {
         this.sku = sku;
     }
 
-    public Date getExpiration() {
+    public int getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(Date expiration) {
+    public void setExpiration(int expiration) {
         this.expiration = expiration;
     }
 
@@ -82,16 +89,49 @@ public class Item {
         this.sale = sale;
     }
 
+    public int getStocked() {
+        return stocked;
+    }
+
+    public void setStocked(int stocked) {
+        this.stocked = stocked;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void incrementItem(Item item) {
+        item.stocked++;
+
+    }
+
+    public void decrementItem(Item item) {
+        item.stocked--;
+    }
+
     @Override
     public String toString() {
-        return "ItemsService{" +
+        return "Item{" +
                 "name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
                 ", section='" + section + '\'' +
                 ", price=" + price +
-                ", sku=" + sku +
+                ", sku='" + sku + '\'' +
                 ", expiration=" + expiration +
                 ", sale=" + sale +
+                ", stocked=" + stocked +
+                ", image='" + image + '\'' +
                 '}';
     }
 }
+
+
+
+
+
+
