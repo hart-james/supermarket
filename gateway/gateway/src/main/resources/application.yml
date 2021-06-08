@@ -19,6 +19,8 @@ spring:
               args:
                 name: items-service
                 fallbackuri: foreward:/itemsFallback
+            - name: RateFilter
+            - name: AuthFilter
 #            - name : RequestRateLimiter
 #              args:
 #                redis-rate-limiter.replenishRate: 1

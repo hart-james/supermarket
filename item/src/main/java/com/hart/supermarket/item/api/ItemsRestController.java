@@ -73,6 +73,7 @@ public class ItemsRestController {
         return "Deleted";
     }
 
+    //temporary
     @DeleteMapping(value = "/delete/all", produces = { "application/json"} )
     public String deleteAll(@RequestParam String password) {
 
