@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/batch/batch.iml" filepath="$PROJECT_DIR$/batch/batch.iml" />
       <module fileurl="file://$PROJECT_DIR$/configserver/configserver.iml" filepath="$PROJECT_DIR$/configserver/configserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/employee/employee.iml" filepath="$PROJECT_DIR$/employee/employee.iml" />
       <module fileurl="file://$PROJECT_DIR$/eureka/eureka.iml" filepath="$PROJECT_DIR$/eureka/eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway/gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/Gateway2/gateway2.iml" filepath="$PROJECT_DIR$/Gateway2/gateway2.iml" />

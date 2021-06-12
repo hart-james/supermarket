@@ -15,6 +15,8 @@ public class RateFilter extends AbstractGatewayFilterFactory {
 
     final Logger logger = LoggerFactory.getLogger(RateFilter.class);
 
+    // BUILD A SEPARATE ACCESS CONTROL FILTER
+
     @Autowired
     private RateLimiter rateLimiter;
 
