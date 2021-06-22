@@ -7,18 +7,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import java.util.ArrayList;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import java.util.List;
 
 @Configuration
@@ -30,6 +28,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private MyUserDetailService myUserDetailService;
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
+
+
     //Turn off authentication for a specific endpoint
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -39,27 +44,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
-
-    }
-
-    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        List<Employee> employees = employeeRepository.findAll();
-        for (Employee e : employees) {
-            auth.inMemoryAuthentication()
-                    .withUser(e.getEmail())
-                    .password(e.getPassword())
-                    .roles(e.getRoles());
-        }
+        auth.userDetailsService(myUserDetailService);
     }
+
 
     //Will use a separate hashing
     @Bean
@@ -67,26 +55,22 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//
-//        List<Employee> employees = employeeRepository.findAll();
-//        ArrayList<UserDetails> users = new ArrayList<UserDetails>();
-//
-//        for (Employee e : employees) {
-//            UserDetails user =
-//                    User.withDefaultPasswordEncoder() //Will use different hashing.
-//                            .username(e.getEmail())
-//                            .password(e.getPassword())
-//                            .roles("USER")
-//                            .build();
-//            users.add(user);
-//        }
-//
-//        return new InMemoryUserDetailsManager(users);
-//    }
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf().disable()
+                .authorizeRequests().antMatchers("/authenticate").permitAll().
+                anyRequest().authenticated().and().
+                exceptionHandling().and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+    }
 
 
 
