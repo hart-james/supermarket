@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework.cloud:spring-cloud-starter-loadbalancer:3.0.4-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-loadbalancer/3.0.4-SNAPSHOT/spring-cloud-starter-loadbalancer-3.0.4-20210612.191620-36.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-loadbalancer/3.0.4-SNAPSHOT/spring-cloud-starter-loadbalancer-3.0.4-20210621.191604-55.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-loadbalancer/3.0.4-SNAPSHOT/spring-cloud-starter-loadbalancer-3.0.4-20210612.191620-36-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-loadbalancer/3.0.4-SNAPSHOT/spring-cloud-starter-loadbalancer-3.0.4-20210621.191604-55-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-loadbalancer/3.0.4-SNAPSHOT/spring-cloud-starter-loadbalancer-3.0.4-20210612.191620-36-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-loadbalancer/3.0.4-SNAPSHOT/spring-cloud-starter-loadbalancer-3.0.4-20210621.191604-55-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

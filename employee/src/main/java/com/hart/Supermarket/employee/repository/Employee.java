@@ -15,6 +15,7 @@ public class Employee {
 
     private String email;
     private String password;
+    private String twoFactorString;
     private String firstName;
     private String surname;
     private String title;
@@ -25,12 +26,13 @@ public class Employee {
     private String[] roles;
 
 
-    public Employee( String email,String password, String firstName,
+    public Employee( String email,String password, String twoFactorString, String firstName,
                      String surname, String title, String phoneNumber, int dateHired,
                     boolean management, boolean executive, String[] roles) {
         this.uuid = UUID.randomUUID().toString();
         this.email = email;
         this.password = password;
+        this.twoFactorString = twoFactorString;
         this.firstName = firstName;
         this.surname = surname;
         this.title = title;
@@ -64,6 +66,14 @@ public class Employee {
     // change at security time
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getTwoFactorString() {
+        return twoFactorString;
+    }
+
+    public void setTwoFactorString(String twoFactorString) {
+        this.twoFactorString = twoFactorString;
     }
 
     public String getFirstName() {
@@ -134,9 +144,10 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "uuid=" + uuid +
+                "uuid='" + uuid + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", twoFactorString='" + twoFactorString + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", title='" + title + '\'' +

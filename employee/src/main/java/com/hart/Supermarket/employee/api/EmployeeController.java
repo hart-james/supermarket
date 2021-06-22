@@ -5,9 +5,8 @@ import com.hart.Supermarket.employee.repository.EmployeeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.ws.rs.Path;
 import java.util.List;
 
 @RestController
@@ -22,13 +21,20 @@ public class EmployeeController {
 
     // POST
     @PostMapping(value= "/create", produces = { "application/json" } )
-    public Employee createEmployee(@RequestBody Employee employee){
+    public Employee createEmployee(@RequestBody Employee employee) throws Exception {
 
-        Employee newEmployee = employee;
         employee.setUuid();
         employeeRepository.save(employee);
-
+        secureNewUser(employee);
         return employee;
+    }
+
+    private void secureNewUser(Employee e) throws Exception {
+        AuthenticationManagerBuilder auth = null;
+        auth.inMemoryAuthentication()
+                .withUser(e.getEmail())
+                .password(e.getPassword())
+                .roles(e.getRoles());
     }
 
 
