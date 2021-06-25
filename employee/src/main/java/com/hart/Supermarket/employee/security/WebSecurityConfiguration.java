@@ -38,9 +38,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     //Turn off authentication for a specific endpoint
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/employees/login");
+        web.ignoring().antMatchers("/employees/authentication/login");
         web.ignoring().antMatchers("/employees/all"); //temporary
         web.ignoring().antMatchers("/employees/create");
+        web.ignoring().antMatchers("/employees/deleteall"); //temporary
     }
 
     @Override
@@ -48,12 +49,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(myUserDetailService);
     }
 
-
-    //Will use a separate hashing
-    @Bean
-    public static NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }
 
     @Override
     @Bean
@@ -73,5 +68,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
+    @Bean
+    public static NoOpPasswordEncoder passwordEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    }
 
 }

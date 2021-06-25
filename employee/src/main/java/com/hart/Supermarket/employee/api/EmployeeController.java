@@ -4,17 +4,16 @@ import com.hart.Supermarket.employee.repository.Employee;
 import com.hart.Supermarket.employee.repository.EmployeeRepository;
 import com.hart.Supermarket.employee.security.JwtUtil;
 import com.hart.Supermarket.employee.security.MyUserDetailService;
-import com.hart.Supermarket.employee.security.models.AuthenticationRequest;
-import com.hart.Supermarket.employee.security.models.AuthenticationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -39,79 +38,62 @@ public class EmployeeController {
 
     // POST
     @PostMapping(value= "/create", produces = { "application/json" } )
-    public Employee createEmployee(@RequestBody Employee employee) {
+    public ResponseEntity<?> createEmployee(@RequestBody Employee e) {
 
         for (Employee create : employeeRepository.findAll()) {
-            if (employee.getEmail() == create.getEmail()) {
-                logger.error("USER EXISTS");
-                return null; //response entity eventually
+            if (e.getEmail().equals(create.getEmail())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Employee Already Exists");
             }
         }
-        employee.setUuid();
-        employeeRepository.save(employee);
 
-        return employee;
-    }
+        e.setUuid();
+        employeeRepository.save(e);
 
-    @PostMapping(value= "/login", produces = { "application/json" } )
-    public ResponseEntity<?> authenticateFirstFactor(
-            @RequestBody AuthenticationRequest authenticationRequest) throws Exception{
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
-            );
-        }
-        catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
-        }
-
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getUsername());
-
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
-    }
-
-    @GetMapping(value= "/login/2fa", produces = { "application/json" } )
-    public String authenticateSecondFactor(@RequestParam String code) {
-        return null; //will return the Authorization string
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(e);
     }
 
     // GET
     @GetMapping(value= "/{uuid}", produces = { "application/json" } )
-    public Employee getEmployeeByUuid(@PathVariable String uuid){
+    public ResponseEntity<Employee> getEmployeeByUuid(@PathVariable String uuid){
         Employee e = employeeRepository.findEmployeeByUuid(uuid);
         e.setPassword("#");
-        return e;
+        return ResponseEntity.status(HttpStatus.FOUND).body(e);
     }
 
     @GetMapping(value= "/all", produces = { "application/json" } )
-    public List<Employee> getAllEmployees() {
+    public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
         for (Employee e : employees) {
             e.setPassword("#");
         }
-        return employees;
+        return ResponseEntity.status(HttpStatus.FOUND).body(employees);
     }
 
 
     // PUT
     @PutMapping(value= "/{uuid}", produces = { "application/json" } )
-    public Employee updateEmployeeByUuid(@RequestBody Employee employee) {
-        employeeRepository.save(employee);
-        employee.setPassword("#"); //No passwords transmitted
-        return employee;
+    public ResponseEntity<Employee> updateEmployeeByUuid(@RequestBody Employee e) {
+        employeeRepository.save(e);
+        e.setPassword("#"); //No passwords transmitted
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(e);
     }
 
 
 
     //DELETE
     @DeleteMapping(value= "/{uuid}", produces = { "application/json" } )
-    public String deleteEmployeeByUuid(@PathVariable String uuid){
+    public ResponseEntity<?> deleteEmployeeByUuid(@PathVariable String uuid,
+                                       HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        String user = principal.getName();
+
         Employee e = employeeRepository.findEmployeeByUuid(uuid);
-        employeeRepository.delete(e);
-        return "Deleted";
+        if (e.getEmail().equals(user)) {
+            employeeRepository.delete(e);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deleted " + user);
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not authorized to delete this user.");
     }
 
     //DELETE  - TEMPORARY

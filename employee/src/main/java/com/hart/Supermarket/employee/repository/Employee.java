@@ -1,6 +1,5 @@
 package com.hart.Supermarket.employee.repository;
 
-import org.bson.UuidRepresentation;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,6 +15,8 @@ public class Employee {
     private String email;
     private String password;
     private String twoFactorString;
+    private String secQuestion;
+    private String secAnswer;
     private String firstName;
     private String surname;
     private String title;
@@ -26,13 +27,15 @@ public class Employee {
     private String[] roles;
 
 
-    public Employee( String email,String password, String twoFactorString, String firstName,
-                     String surname, String title, String phoneNumber, int dateHired,
-                    boolean management, boolean executive, String[] roles) {
+    public Employee(String email, String password, String twoFactorString, String secQuestion,
+                    String secAnswer, String firstName, String surname, String title, String phoneNumber,
+                    int dateHired, boolean management, boolean executive, String[] roles) {
         this.uuid = UUID.randomUUID().toString();
         this.email = email;
         this.password = password;
         this.twoFactorString = twoFactorString;
+        this.secQuestion = secQuestion;
+        this.secAnswer = secAnswer;
         this.firstName = firstName;
         this.surname = surname;
         this.title = title;
@@ -63,7 +66,6 @@ public class Employee {
         return password;
     }
 
-    // change at security time
     public void setPassword(String password) {
         this.password = password;
     }
@@ -74,6 +76,22 @@ public class Employee {
 
     public void setTwoFactorString(String twoFactorString) {
         this.twoFactorString = twoFactorString;
+    }
+
+    public String getSecQuestion() {
+        return secQuestion;
+    }
+
+    public void setSecQuestion(String secQuestion) {
+        this.secQuestion = secQuestion;
+    }
+
+    public String getSecAnswer() {
+        return secAnswer;
+    }
+
+    public void setSecAnswer(String secAnswer) {
+        this.secAnswer = secAnswer;
     }
 
     public String getFirstName() {
@@ -148,6 +166,8 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", twoFactorString='" + twoFactorString + '\'' +
+                ", secQuestion='" + secQuestion + '\'' +
+                ", secAnswer='" + secAnswer + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", title='" + title + '\'' +
