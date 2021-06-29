@@ -1,6 +1,5 @@
 package com.hart.supermarket.gateway.filter;
 
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -9,14 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.util.Collections;
 
 @Component
 public class AuthFilter extends AbstractGatewayFilterFactory {
@@ -53,7 +49,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory {
                 return chain.filter(exchange);
             }
 
-            logger.info("Didn't work");
+            logger.info("Didn't work : " + responseCode);
             return null;
         };
 
