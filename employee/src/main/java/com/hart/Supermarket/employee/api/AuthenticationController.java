@@ -64,6 +64,11 @@ public class AuthenticationController {
         return null; //will return the Authorization string
     }
 
+    @GetMapping(value= "/validate", produces = { "application/json" } )
+    public ResponseEntity<String> validate() {
+        return ResponseEntity.ok("Successfully Validated Token");
+    }
+
     @PostMapping(value= "/login/changePassword", produces = { "application/json" } )
     public ResponseEntity<?> changePassword(@RequestParam String secAnswer) {
         return null; //will reset the users password after the correct question.
