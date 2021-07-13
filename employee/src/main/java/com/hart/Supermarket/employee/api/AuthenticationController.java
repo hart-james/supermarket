@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,6 +36,9 @@ public class AuthenticationController {
     @Autowired
     private MyUserDetailService userDetailsService;
 
+    @Autowired
+    private JavaMailSender emailSender;
+
 
 
 
@@ -42,6 +47,12 @@ public class AuthenticationController {
     public ResponseEntity<?> authenticateFirstFactor(
             @RequestBody AuthenticationRequest authenticationRequest) throws Exception{
 
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("noreply@hart.com");
+        message.setTo("hart87@gmail.com");
+        message.setSubject("login");
+        message.setText("2 factor auth");
+        emailSender.send(message);
 
         try {
             authenticationManager.authenticate(
