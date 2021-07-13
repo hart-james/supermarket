@@ -1,5 +1,6 @@
 package com.hart.Supermarket.employee.api;
 
+import com.hart.Supermarket.employee.Secrets;
 import com.hart.Supermarket.employee.repository.Employee;
 import com.hart.Supermarket.employee.repository.EmployeeRepository;
 import com.hart.Supermarket.employee.security.JwtUtil;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +24,6 @@ public class EmployeeController {
 
     final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
-
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -34,6 +35,8 @@ public class EmployeeController {
 
     @Autowired
     private MyUserDetailService userDetailsService;
+
+
 
 
     // POST
@@ -64,7 +67,7 @@ public class EmployeeController {
     public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
         for (Employee e : employees) {
-            e.setPassword("#");
+            //e.setPassword("#");
         }
         return ResponseEntity.status(HttpStatus.FOUND).body(employees);
     }

@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,10 +36,12 @@ public class AuthenticationController {
 
 
 
+
     // POST
     @PostMapping(value= "/login", produces = { "application/json" } )
     public ResponseEntity<?> authenticateFirstFactor(
             @RequestBody AuthenticationRequest authenticationRequest) throws Exception{
+
 
         try {
             authenticationManager.authenticate(
