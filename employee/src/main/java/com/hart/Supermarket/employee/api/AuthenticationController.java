@@ -1,5 +1,7 @@
 package com.hart.Supermarket.employee.api;
 
+import com.hart.Supermarket.employee.Secrets;
+import com.hart.Supermarket.employee.repository.Employee;
 import com.hart.Supermarket.employee.repository.EmployeeRepository;
 import com.hart.Supermarket.employee.security.JwtUtil;
 import com.hart.Supermarket.employee.security.MyUserDetailService;
@@ -15,8 +17,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Random;
 
 @RestController
 @RequestMapping("/employees/authentication")
@@ -40,19 +43,55 @@ public class AuthenticationController {
     private JavaMailSender emailSender;
 
 
-
-
     // POST
     @PostMapping(value= "/login", produces = { "application/json" } )
     public ResponseEntity<?> authenticateFirstFactor(
             @RequestBody AuthenticationRequest authenticationRequest) throws Exception{
 
+        //find the needed user
+        Employee foundEmployee = employeeRepository.findEmployeeByEmail(
+                authenticationRequest.getUsername());
+
+        //compare passwords
+        if (foundEmployee.getPassword().equals(
+                authenticationRequest.getPassword())) {
+
+            //generate a random numbered code
+            String twoFactorCode = GetHex();
+
+            //send that code to the requesting users email (temporary hardcoded email)
+            sendEmailForTwoFactorAuthentication("hart87@gmail.com", twoFactorCode);
+
+            //update the users twoFactorString field in DB
+            foundEmployee.setTwoFactorString(twoFactorCode);
+            employeeRepository.save(foundEmployee);
+
+            return ResponseEntity.ok("First Factor Authenticated.");
+        }
+
+        return (ResponseEntity) ResponseEntity.badRequest();
+
+    }
+
+    private  String GetHex() {
+        Random random = new Random();
+        Integer num = random.nextInt(9000) + 1000;
+        String result = Integer.toHexString(num);
+        return result;
+    }
+
+    private void sendEmailForTwoFactorAuthentication(String to, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@hart.com");
-        message.setTo("hart87@gmail.com");
-        message.setSubject("login");
-        message.setText("2 factor auth");
+        message.setTo(to);
+        message.setSubject("Two Factor Authentication Code");
+        message.setText(text);
         emailSender.send(message);
+    }
+
+
+    @PostMapping(value= "/login/2fa", produces = { "application/json" } )
+    public ResponseEntity<?>  authenticateSecondFactor(
+            @RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
         try {
             authenticationManager.authenticate(
@@ -71,11 +110,6 @@ public class AuthenticationController {
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
-    }
-
-    @PostMapping(value= "/login/2fa", produces = { "application/json" } )
-    public String authenticateSecondFactor(@RequestParam String code) {
-        return null; //will return the Authorization string
     }
 
     @GetMapping(value= "/validate", produces = { "application/json" } )
