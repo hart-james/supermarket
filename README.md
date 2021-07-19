@@ -1,5 +1,6 @@
-# SUPERMARKET SYSTEM DESIGN PROJECT
+# SUPERMARKET SYSTEM DESIGN
 
+![GitHub Repo Size](https://img.shields.io/badge/Built%20With-Spring%20Boot-brightgreen?style=for-the-badge)
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/HART87/supermarket?style=for-the-badge)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/hart87/supermarket?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/hart87/supermarket?style=for-the-badge)
@@ -7,7 +8,7 @@
 
 ![supermarket](./service.png)
 
-A Supermarket built from scratch as a long term system design project. A resilient Microservice based architecture complete with :
+A Supermarket built from scratch as a long term system design project with Spring Boot. Addiitonal Languages/Frameworks will can fit in. A loosely coupled & resilient Microservice based architecture complete with :
 - REST API
  - API Gateway
    - Load Balacing
