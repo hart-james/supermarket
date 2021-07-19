@@ -1,6 +1,5 @@
 package com.hart.Supermarket.employee.api;
 
-import com.hart.Supermarket.employee.Secrets;
 import com.hart.Supermarket.employee.repository.Employee;
 import com.hart.Supermarket.employee.repository.EmployeeRepository;
 import com.hart.Supermarket.employee.security.JwtUtil;

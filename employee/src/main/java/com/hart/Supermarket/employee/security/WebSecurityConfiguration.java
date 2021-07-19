@@ -1,6 +1,5 @@
 package com.hart.Supermarket.employee.security;
 
-import com.hart.Supermarket.employee.repository.Employee;
 import com.hart.Supermarket.employee.repository.EmployeeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -75,5 +73,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
+
 
 }
