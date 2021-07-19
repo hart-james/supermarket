@@ -7,6 +7,7 @@ import com.hart.Supermarket.employee.security.JwtUtil;
 import com.hart.Supermarket.employee.security.MyUserDetailService;
 import com.hart.Supermarket.employee.security.models.AuthenticationRequest;
 import com.hart.Supermarket.employee.security.models.AuthenticationResponse;
+import com.hart.Supermarket.employee.security.models.TwoFactorAuthenticationRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,31 +92,43 @@ public class AuthenticationController {
 
     @PostMapping(value= "/login/2fa", produces = { "application/json" } )
     public ResponseEntity<?>  authenticateSecondFactor(
-            @RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+            @RequestBody TwoFactorAuthenticationRequest twoFactorAuthenticationRequest) throws Exception {
 
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            authenticationRequest.getUsername(),
-                            authenticationRequest.getPassword())
-            );
-        }
-        catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
-        }
+            Employee empl = employeeRepository.findEmployeeByEmail(
+                    twoFactorAuthenticationRequest.getUsername());
+            logger.info(empl.toString());
 
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getUsername());
+            if (twoFactorAuthenticationRequest.getTwoFactorAuthCode()
+                    .equals(empl.getTwoFactorString())) {
 
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
+                try {
+                    authenticationManager.authenticate(
+                            new UsernamePasswordAuthenticationToken(
+                                    twoFactorAuthenticationRequest.getUsername(),
+                                    twoFactorAuthenticationRequest.getPassword())
+                    );
+                }
+                catch (BadCredentialsException e) {
+                    throw new Exception("Incorrect username and/or password", e);
+                }
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+                final UserDetails userDetails = userDetailsService
+                        .loadUserByUsername(twoFactorAuthenticationRequest.getUsername());
+
+                final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+                return ResponseEntity.ok(new AuthenticationResponse(jwt));
+            }
+
+            return (ResponseEntity<?>) ResponseEntity.badRequest();
     }
+
 
     @GetMapping(value= "/validate", produces = { "application/json" } )
     public ResponseEntity<String> validate() {
         return ResponseEntity.ok("Successfully Validated Token");
     }
+
 
     @PostMapping(value= "/login/changePassword", produces = { "application/json" } )
     public ResponseEntity<?> changePassword(@RequestParam String secAnswer) {

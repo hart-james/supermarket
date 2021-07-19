@@ -41,6 +41,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/employees/authentication/login");
+        web.ignoring().antMatchers("/employees/authentication/login/2fa");
         web.ignoring().antMatchers("/employees/all"); //temporary
         web.ignoring().antMatchers("/employees/create");
         web.ignoring().antMatchers("/employees/deleteall"); //temporary
