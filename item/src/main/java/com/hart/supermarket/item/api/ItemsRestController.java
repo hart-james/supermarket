@@ -39,8 +39,10 @@ public class ItemsRestController {
 
     //PUT
     @PutMapping(value ="/update/{sku}", produces = { "application/json" } )
-    public Item editAnItem(@RequestBody Item item){
-        itemRepository.save(item);
+    public Item editAnItem(@RequestBody Item item,
+                           @PathVariable String sku){
+        Item foundItem = itemRepository.findItemBySku(sku);
+        //set the changed attributes here
         return item;
     }
 
@@ -77,12 +79,8 @@ public class ItemsRestController {
     @DeleteMapping(value = "/delete/all", produces = { "application/json"} )
     public String deleteAll(@RequestParam String password) {
 
-        //The password would be retrieved from the config server at startup
-        if (password == "pizza") {
-            itemRepository.deleteAll();
-            return "Deleted Everything";
-        }
-        return "Did not delete.";
+        itemRepository.deleteAll();
+        return "Deleted all.";
 
     }
 

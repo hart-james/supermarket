@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.4-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-bootstrap/3.0.4-SNAPSHOT/spring-cloud-starter-bootstrap-3.0.4-20210712.201837-93.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-bootstrap/3.0.4-SNAPSHOT/spring-cloud-starter-bootstrap-3.0.4-20210720.165621-102.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-bootstrap/3.0.4-SNAPSHOT/spring-cloud-starter-bootstrap-3.0.4-20210712.201837-93-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-bootstrap/3.0.4-SNAPSHOT/spring-cloud-starter-bootstrap-3.0.4-20210720.165621-102-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-bootstrap/3.0.4-SNAPSHOT/spring-cloud-starter-bootstrap-3.0.4-20210712.201837-93-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/cloud/spring-cloud-starter-bootstrap/3.0.4-SNAPSHOT/spring-cloud-starter-bootstrap-3.0.4-20210720.165621-102-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -21,10 +21,5 @@ public class ItemApplication {
 		System.out.println("Items Service.");
 	}
 
-	@Bean
-	RateLimiter rateLimiter(){
-		return RateLimiter.create(
-				2,
-				Duration.ofSeconds(10));
-	}
+
 }

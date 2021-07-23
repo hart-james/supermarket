@@ -7,4 +7,9 @@ spring:
 #  redis:
 #    host: 192.168.86.242
 #    port: 6380
+  data:
+    mongodb:
+      host: localhost
+      port: 27018
+      datebase: "sales"
 
