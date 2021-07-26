@@ -5,6 +5,8 @@ import com.hart.supermarket.sales.repository.SaleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,26 +19,32 @@ public class SalesController {
     final Logger logger = LoggerFactory.getLogger(SalesController.class);
 
     @Autowired
-    private SaleRepository salesepository;
+    private RedisTemplate template;
+    @Autowired
+    private ChannelTopic postTopic;
+    @Autowired
+    private ChannelTopic deleteTopic;
+    @Autowired
+    private SaleRepository salesRepository;
 
     //POST
     @PostMapping(value = "/create", produces = { "application/json" } )
     public String createAnIteam(@RequestBody Sale sale) {
-        sale.setUuid();
-        salesepository.save(sale);
-        //send a message to the transaction server
+        //sale.setUuid();
+        //salesepository.save(sale);
+        template.convertAndSend(postTopic.getTopic(), sale.getEmployee());
         return "Saved " + sale.getUuid();
     }
 
     //GET
     @GetMapping(value = "/all", produces = { "application/json"} )
     public List<Sale> getAllSales(){
-        return salesepository.findAll();
+        return salesRepository.findAll();
     }
 
     @GetMapping(value = "/{uuid}", produces = { "application/json"} )
     public Sale findSaleByUuid(@PathVariable String uuid){
-        return salesepository.findSaleByUuid(uuid);
+        return salesRepository.findSaleByUuid(uuid);
     }
 
     @GetMapping(value = "/since/{when}", produces = { "application/json"} )
@@ -45,7 +53,7 @@ public class SalesController {
         Long unixTime = System.currentTimeMillis() / 1000L;
         Integer check = unixTime.intValue() - when;
 
-        for (Sale s : salesepository.findAll()) {
+        for (Sale s : salesRepository.findAll()) {
             if (check < s.getTime()) {
                 sales.add(s);
             }
@@ -58,10 +66,10 @@ public class SalesController {
     @PutMapping(value = "/{uuid}", produces = {"application/json"})
     public Sale editASalesContents(@PathVariable String uuid,
                                    @RequestBody Sale sale) {
-        Sale theSale = salesepository.findSaleByUuid(uuid);
+        Sale theSale = salesRepository.findSaleByUuid(uuid);
         theSale.setItemsSku(sale.getItemsSku());
         theSale.setTotal(sale.getTotal());
-        salesepository.save(theSale);
+        salesRepository.save(theSale);
         return theSale;
     }
 
@@ -69,16 +77,16 @@ public class SalesController {
     //DELETE
     @DeleteMapping(value = "/{uuid}", produces = { "application/json"} )
     public String refundSale(@PathVariable String uuid){
-        Sale theSale = salesepository.findSaleByUuid(uuid);
-        salesepository.delete(theSale);
-        //Send a message to the transaction service
+        Sale theSale = salesRepository.findSaleByUuid(uuid);
+        salesRepository.delete(theSale);
+        template.convertAndSend(postTopic.getTopic(), uuid);
         return "Deleted And Refunded Sale # : " + theSale.getUuid();
     }
 
     //temporary
     @DeleteMapping(value = "/all", produces = { "application/json"} )
     public void deleteAll(){
-        salesepository.deleteAll();
+        salesRepository.deleteAll();
     }
 
 

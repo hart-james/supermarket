@@ -14,5 +14,7 @@ public class Receiver implements MessageListener {
 
         logger.info("The message is .... : " + message.toString());
 
+        //Logic to perform further operations based on message content here.
+
     }
 }

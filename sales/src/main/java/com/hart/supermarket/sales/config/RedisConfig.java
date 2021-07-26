@@ -18,7 +18,7 @@ public class RedisConfig {
     @Bean
     public JedisConnectionFactory connectionFactory() {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-        configuration.setHostName("192.168.86.242");
+        configuration.setHostName("0.0.0.0");
         configuration.setPort(6380);
         return new JedisConnectionFactory(configuration);
     }
@@ -32,8 +32,13 @@ public class RedisConfig {
     }
 
     @Bean
-    public ChannelTopic topic(){
+    public ChannelTopic postTopic(){
         return new ChannelTopic("pubsub:sales");
+    }
+
+    @Bean
+    public ChannelTopic deleteTopic() {
+        return new ChannelTopic("pubsub:sales:refund");
     }
 
     @Bean
@@ -45,7 +50,8 @@ public class RedisConfig {
     public RedisMessageListenerContainer redisMessageListenerContainer() {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory());
-        container.addMessageListener(messageListenerAdapter(), topic());
+        container.addMessageListener(messageListenerAdapter(), postTopic());
+        container.addMessageListener(messageListenerAdapter(), deleteTopic());
         return container;
     }
 
