@@ -1,10 +1,13 @@
 package com.hart.supermarket.sales.api;
 
 import com.hart.supermarket.sales.repository.Sale;
-import com.hart.supermarket.sales.repository.SaleRepository;
+import com.hart.supermarket.sales.repository.SalesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +28,7 @@ public class SalesController {
     @Autowired
     private ChannelTopic deleteTopic;
     @Autowired
-    private SaleRepository salesRepository;
+    private SalesRepository salesRepository;
 
     //POST
     @PostMapping(value = "/create", produces = { "application/json" } )
@@ -42,6 +45,7 @@ public class SalesController {
         return salesRepository.findAll();
     }
 
+    @Cacheable(value = "sale", key = "#uuid")
     @GetMapping(value = "/{uuid}", produces = { "application/json"} )
     public Sale findSaleByUuid(@PathVariable String uuid){
         return salesRepository.findSaleByUuid(uuid);
@@ -63,6 +67,7 @@ public class SalesController {
 
 
     //PUT
+    @CachePut(value = "sale", key = "#sale.uuid")
     @PutMapping(value = "/{uuid}", produces = {"application/json"})
     public Sale editASalesContents(@PathVariable String uuid,
                                    @RequestBody Sale sale) {
@@ -75,6 +80,7 @@ public class SalesController {
 
 
     //DELETE
+    @CacheEvict(value = "sale", allEntries=true)
     @DeleteMapping(value = "/{uuid}", produces = { "application/json"} )
     public String refundSale(@PathVariable String uuid){
         Sale theSale = salesRepository.findSaleByUuid(uuid);

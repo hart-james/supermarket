@@ -3,11 +3,12 @@ package com.hart.supermarket.sales.repository;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @Document(collection="Sale")
-public class Sale {
+public class Sale implements Serializable {
 
     @Id
     private String uuid;

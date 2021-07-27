@@ -12,7 +12,7 @@ public class JaegerConfig {
     @Bean
     public JaegerTracer jaegerTracer() {
 
-        return new io.jaegertracing.Configuration("Items-Service")
+        return new io.jaegertracing.Configuration("Sales-Service")
                 .withSampler(new io.jaegertracing.Configuration.SamplerConfiguration().withType(ConstSampler.TYPE)
                         .withParam(1))
                 .withReporter(new io.jaegertracing.Configuration.ReporterConfiguration().withLogSpans(true))
