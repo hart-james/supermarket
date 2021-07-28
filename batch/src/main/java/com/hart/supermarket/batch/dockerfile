@@ -1,4 +1,0 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ADD target/jeddit-0.0.1-SNAPSHOT.jar jeddit.jar
-ENTRYPOINT ["java", "-jar", "/jeddit.jar" ]
