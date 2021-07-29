@@ -1,6 +1,7 @@
 # SUPERMARKET SYSTEM DESIGN
 
 ![GitHub Repo Size](https://img.shields.io/badge/Built%20With-Spring%20Boot-brightgreen?style=for-the-badge)
+![GitHub Repo Size](https://img.shields.io/badge/Built%20With-GoLang-informational?style=for-the-badge)
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/HART87/supermarket?style=for-the-badge)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/hart87/supermarket?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/hart87/supermarket?style=for-the-badge)
