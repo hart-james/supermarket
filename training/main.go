@@ -1,6 +1,5 @@
 package main
 
-//https://tutorialedge.net/golang/creating-restful-api-with-golang/
 
 import (
 	"fmt"
@@ -18,9 +17,7 @@ type Article struct {
     Content string `json:"content"`
 }
 
-// let's declare a global Articles array
-// that we can then populate in our main function
-// to simulate a database
+//simulate a Database
 var Articles []Article
 
 func returnAllArticles(w http.ResponseWriter, r *http.Request){
@@ -30,37 +27,21 @@ func returnAllArticles(w http.ResponseWriter, r *http.Request){
 
 func createNewArticle(w http.ResponseWriter, r *http.Request) {
     
-	reqBody, _ := ioutil.ReadAll(r.Body)
-    var article Article 
-    json.Unmarshal(reqBody, &article)
-
-    Articles = append(Articles, article)
-
-    json.NewEncoder(w).Encode(article)
+	//POST
 }
 
 func deleteArticle(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    id := vars["id"]
-
-    for index, article := range Articles {
-        if article.Id == id {
-            Articles = append(Articles[:index], Articles[index+1:]...)
-        }  //remove the item from the slice. Work on this.
-    }
+    //DELETE
 
 }
 
-func updateArticle(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    key := vars["id"]
+func updateArticle(w http.ResponseWriter, r *http.Request) { 
+    
+    eventID := mux.Vars(r)["id"]
+	var updatedArticle Article
 
-	for _, article := range Articles {
-        if article.Id == key {
+    //  PUT
 
-            json.NewEncoder(w).Encode(article)
-        }
-    }
 }
 
 func homePage(w http.ResponseWriter, r *http.Request){
